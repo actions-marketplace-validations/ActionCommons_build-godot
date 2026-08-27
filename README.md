@@ -50,6 +50,22 @@ steps:
 A separate SCons invocation is run for every `platform` × `target` combination,
 so the example above produces four builds.
 
+### Build an iOS export template with simulator support
+
+```yaml
+- name: Build Godot iOS templates
+  id: godot
+  uses: ActionCommons/build-godot@v1
+  with:
+    version: '4.4'
+    platform: ios
+    target: template_release
+    architecture: arm64
+    options: |
+      generate_bundle=yes
+      ios_simulator=yes
+```
+
 ### Build with debug symbols and include a header archive
 
 ```yaml
@@ -113,6 +129,8 @@ newline-separated:
 | ---------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `create_header_archive`                                    | After the build completes, ZIP every `*.glsl`, `*.h`, `*.hh`, `*.hpp`, `*.inc`, and `*.inl` file found in the working directory and set the `header_archive` output.                                                                                     |
 | `debug_symbols=[yes\|no]`                                  | Control whether debug symbols are included in the compiled binaries. Passed directly as `debug_symbols=` to SCons.                                                                                                                                       |
+| `generate_bundle=[yes\|no]`                                | Generate a `.app` bundle after compilation. Relevant for `macos` and `ios` targets. Passed directly as `generate_bundle=` to SCons.                                                                                                                      |
+| `ios_simulator=[yes\|no]`                                  | Build for the iOS Simulator instead of a physical device. Only meaningful when `platform` is `ios`. Passed directly as `ios_simulator=` to SCons.                                                                                                        |
 | `optimize=[speed_trace\|speed\|size\|debug\|none\|custom]` | Set the compiler optimisation level. Passed directly as `optimize=` to SCons. See the [Godot build tool docs](https://docs.godotengine.org/en/stable/contributing/development/compiling/introduction_to_the_buildsystem.html) for what each level means. |
 
 ## How it works
@@ -147,4 +165,116 @@ INPUT_TARGET=editor
 INPUT_ARCHITECTURE=auto
 INPUT_OPTIONS=
 INPUT_TIMEOUT=0
+```
+
+## Other useful `npm` commands
+
+### Setup packages defined in the `package.json` file
+
+```bash
+npm install
+```
+
+### Update packages
+
+Update packages to the latest version allowed by the version range specified in
+the `package.json` file.
+
+```bash
+npm update
+```
+
+### Check for vulnerabilities
+
+```bash
+npm audit
+```
+
+### Check the registry for newer versions
+
+Check the registry to see if any of the installed packages have newer versions
+available.
+
+```bash
+npm outdated
+```
+
+### Prune
+
+Remove "extraneous" packages—those that are installed in node_modules but no
+longer listed in `package.json`
+
+```bash
+npm prune
+```
+
+### Simplify the dependency tree
+
+Simplify the dependency tree by moving duplicated nested dependencies further up
+the hierarchy.
+
+```bash
+npm dedupe
+```
+
+### Display package dependencies
+
+Display an ASCII tree of all installed packages and their dependencies.
+
+```bash
+npm list (or npm ls)
+npm ls -g --depth=0   # to see only top-level global packages
+```
+
+### Display dependency chain
+
+Check why a specific package is installed by visualizing the dependency chain
+leading to it.
+
+```bash
+npm explain <package> (formerly npm why)
+```
+
+### Run diagnostic tests
+
+Run a series of diagnostic tests to ensure the npm installation and environment
+(like the cache and registry access) are working correctly.
+
+```bash
+npm doctor
+```
+
+### Clear cache
+
+Clear the internal npm cache, which can resolve "ghost" installation errors.
+
+```bash
+npm cache clean --force
+```
+
+### Continuous Integration
+
+Perform a "clean" install by deleting node_modules and strictly following the
+`package-lock.json` file (Designed for CI environments).
+
+```bash
+npm ci
+```
+
+### Create a symbolic link
+
+Create a symbolic link for a package being developed locally, allowing use in
+another project as if it were published.
+
+```bash
+npm link
+```
+
+### Print detailed metadata about a package
+
+Print detailed metadata about a package from the registry without installing it,
+such as available versions or its documentation.
+
+```bash
+npm view <package-name>
 ```

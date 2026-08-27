@@ -1,7 +1,7 @@
 {
   "name": "build-godot",
   "description": "GitHub Action to download and build the Godot game engine from source",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "author": "",
   "type": "module",
   "private": true,
@@ -39,10 +39,10 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "^3.0.0",
-    "@actions/exec": "^1.1.1",
-    "@actions/glob": "^0.5.0",
-    "@actions/tool-cache": "^2.0.1",
+    "@actions/core": "^3.0.1",
+    "@actions/exec": "^3.0.0",
+    "@actions/glob": "^0.7.0",
+    "@actions/tool-cache": "^4.0.0",
     "adm-zip": "^0.5.16"
   },
   "devDependencies": {
@@ -56,25 +56,24 @@
     "@rollup/plugin-typescript": "^12.3.0",
     "@types/adm-zip": "^0.5.5",
     "@types/jest": "^30.0.0",
-    "@types/node": "^25.2.3",
-    "@typescript-eslint/eslint-plugin": "^8.56.0",
-    "eslint": "^10.0.0",
+    "@types/node": "^26.0.1",
+    "@typescript-eslint/eslint-plugin": "^8.62.1",
+    "eslint": "^10.6.0",
     "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-jest": "^29.15.0",
+    "eslint-plugin-jest": "^29.15.4",
     "eslint-plugin-prettier": "^5.5.5",
     "jest": "^30.2.0",
     "make-coverage-badge": "^1.2.0",
-    "prettier": "^3.8.1",
+    "prettier": "^3.9.4",
     "rollup": "^4.57.1",
     "ts-jest": "^29.4.6",
     "ts-jest-resolver": "^2.0.1",
-    "typescript": "^5.9.3"
+    "typescript": "^6.0.2"
   },
   "optionalDependencies": {
     "@rollup/rollup-linux-x64-gnu": "*"
   },
   "overrides": {
-    "minimatch": "3.1.4",
-    "undici": "6.24.0"
+    "undici": "~6.27.0"
   }
 }
